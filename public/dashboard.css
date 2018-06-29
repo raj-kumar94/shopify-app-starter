@@ -1,0 +1,146 @@
+header {
+    width: 100%;
+    padding: 10px;
+    background-color: forestgreen;
+}
+body{
+    background-color: aliceblue!important;
+}
+
+.text-align--left{
+    text-align: left;
+}
+.text-align--right {
+    text-align: right;
+}
+
+.float--left {
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+}
+
+.float--right{
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+}
+.username, .user_dropdown, .user_img {
+    display: inline-block;
+    text-align: center;
+}
+
+.username {
+    padding-right: 20px;
+}
+
+.username h5 {
+    color: white;
+}
+.user_img img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+}
+
+.user_dropdown .fa {
+    color: white;
+}
+
+.user_dropdown {
+    padding-right: 10px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+ .dropdown-content {
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s 0.5s;
+    transition-delay: 0s;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.title{
+    font-size:18px;
+    color:black;
+}
+.title2{
+    font-size:14px;
+    color:darkgray;
+}
+.dropdown-content a:hover {background-color: #ddd}
+
+ .dropdown:hover .dropdown-content {
+    visibility: visible;
+    opacity: 1;
+}
+.table-hover{
+    background-color: white;
+}
+.table-hover>tbody>tr:hover {
+    background-color: transparent!important;
+}
+thead th{
+    color:grey;
+    font-family:sans-serif;
+    font-size:10px;
+    text-align: center;
+}
+tbody td{
+    text-align: center;
+}
+.bold{
+    font-weight: bold;
+}
+.u_name{
+    color:white;
+    position: absolute;
+    right: 20px;
+    top: -6px;
+}
+.two{
+    padding:20px;
+    font-size:12px;
+}
+input{
+    font-size:8px!important;
+}
+.btn{
+    padding:1px 10px!important;
+    font-size: 10px !important;
+}
+.pink{
+    color:white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: hotpink!important;
+    padding:1px 10px!important;
+    font-size: 10px !important;
+}
+.booked{
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: transparent!important;
+    color: forestgreen!important;
+    padding:1px 10px!important;
+    font-size: 10px !important;
+}
+.pagination>li{
+    display: inline-block!important;
+}
