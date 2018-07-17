@@ -1,5 +1,6 @@
 const Shopify = require('shopify-api-node');
-var {baseUrl, shop_name, shopify_api_key, shopify_api_secret, shopify_api_shared_secret} = require('../shopify/shopifyAppSetting');
+const {baseUrl, shop_name, shopify_api_key, shopify_api_secret, shopify_api_shared_secret} = require('../shopify/shopifyAppSetting');
+const verifyShopifyWebhook = require('../middlewares/verifyWebhooks');
 
 
 const shopify = new Shopify({
@@ -10,15 +11,10 @@ const shopify = new Shopify({
 
 
 exports.productUpdate = (req, res) => {
-  shopify.webhook.create({
-        "topic": "products/update",
-        "address": baseUrl+"/marmeto/webhooks/product-update",
-        "format": "json"
-    }).then( (created) => {
-    res.send(created);
-    console.log(created);
-    }).catch( (err) => {
-    // res.send(err);
-    console.log(err);
-    });
+  let status = verifyShopifyWebhook(req, res); // immediately sends 200 or 401 status, so don't send response again
+  if(!status){
+      console.log('cannot verify request');
+      return;
+  }
+  console.log('yo');
 }

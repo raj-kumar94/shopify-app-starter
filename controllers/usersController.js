@@ -47,6 +47,9 @@ exports.postLogin = (req, res) => {
             req.session.user = user.email;
             res.redirect('/user/dashboard');
         }
+    })
+    .catch( (err) => {
+        res.send(err);
     });
 }
 
@@ -59,7 +62,7 @@ exports.dashboard = (req, res) => {
         res.render('dashboard.hbs');
     } else {
         console.log('b');
-        res.redirect('/login');
+        res.redirect('/user/login');
     }
 }
 
@@ -70,6 +73,6 @@ exports.logout = (req, res) => {
         res.clearCookie('user_sid');
         res.redirect('/');
     } else {
-        res.redirect('/login');
+        res.redirect('/user/login');
     }
 }

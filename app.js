@@ -119,9 +119,10 @@ app.use('/order', order);
 // app.get('/shopify/callback', salesApp.callback);
 
 
-app.get('/',sessionChecker, (req, res) => {
-  res.redirect('/user/login');
-});  
+app.get('/dashboard',sessionChecker, (req, res) => {
+  res.send('Some dashboard content');
+}); 
+
 
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);

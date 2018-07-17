@@ -42,3 +42,21 @@ exports.orders = (req, res) => {
 ```
 
 > Note: copy .env.example to .env and update values
+
+# Registering webhooks
+```
+node shopify/registerWeboks.js products/update
+```
+
+# Checking user session
+
+```
+var sessionChecker = require('./middlewares/sessionChecker');
+```
+then in a route
+
+```
+app.get('/profile',sessionChecker, (req, res) => {
+  res.redirect('/user/login');
+}); 
+```

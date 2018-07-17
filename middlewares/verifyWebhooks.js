@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 
-function verifyShopifyHook(req) {
+function verifyShopifyHook(req, accessToken='') {
     // console.log(req.body);
     var shopify_api_shared_secret = '';
     if(accessToken){

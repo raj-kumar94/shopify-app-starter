@@ -3,7 +3,7 @@ var router = express.Router();
 
 const webhooksController = require('../controllers/webhooksController');
 
-router.get('/product-update', webhooksController.productUpdate);
+router.post('/product-update', webhooksController.productUpdate);
 
 
 module.exports = router;
