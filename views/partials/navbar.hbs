@@ -1,0 +1,71 @@
+<nav class="navbar navbar-default">
+  <div class="container" id="nav-container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img alt="Starter APP" src="/public/img/logo.png">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Products <span class="sr-only">(current)</span></a></li>
+        <li><a href="/settings/all">Settings</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Discounts <span class="caret"></span></a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/settings/all">Settings</a></li>           
+            <li role="separator" class="divider"></li>
+            <li>
+              <form action="/user/logout" method="POST">
+                <input type="submit" value="Logout" class="logout-btn">
+              </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<style>
+  #nav-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .logout-btn {
+    border: none;
+    background: white;
+    padding: 3px 20px;   
+    color: #333;
+    font-size: 15px;
+    width: 100%;
+    text-align: left;
+    outline: none !important;
+  }
+  @media (min-width: 768px) {
+    .navbar {
+      border-radius: 0 !important;
+    }
+  }
+  .navbar-brand img{
+    max-width: 200px;
+  }
+  @media (min-width: 768px) {
+    .navbar-nav>li>a {
+        font-size: 16px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+  }
+</style>

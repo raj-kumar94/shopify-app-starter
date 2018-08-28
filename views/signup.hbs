@@ -1,51 +1,118 @@
 <html>
     <head>
-        <title>Login Here</title>
+        <title>Signup to CMS</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <style>
+            .signup-body {
+                background: url("/public/img/blur-login-bg.jpg");
+                background-repeat: no-repeat;
+                width: 100%;
+                min-height: 100vh;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                padding: 15px;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                z-index: 1;
+            }
+            .signup-main--wrapper {
+                position: relative;
+                top: 80px;
+            }
+            .signup-box-wrapper {
+                width: 450px;
+                height: 460px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 5px;
+                padding: 10px 30px;
+                -webkit-box-shadow: 0 2px 20px rgba(0,0,0,.19), 0 4px 6px rgba(0,0,0,.23);
+                   -moz-box-shadow: 0 2px 20px rgba(0,0,0,.19), 0 4px 6px rgba(0,0,0,.23);
+                        box-shadow: 0 2px 20px rgba(0,0,0,.19), 0 4px 6px rgba(0,0,0,.23);
+            }
+            .signup-box-wrapper .form-control {
+                height: 40px !important;
+            }
+            .signup-heading {
+                font-weight: bold;
+                margin-bottom: 30px;
+            }
+            .group-buttons {
+                margin-top: 20px;
+            }
+            .group-buttons input {
+                padding: 6px 25px;
+            }
+            .register-text p {
+                color: #979797;
+                font-size: 13px;
+            }
+            .register-text a:hover {
+                text-decoration: none;
+            }
+            .login-copyright-wrapper {
+                position: relative;
+                bottom: 0;
+                text-align: center;
+            }
+            .login-copyright-wrapper p {
+                color: #4c4c4c;
+            }
+            .login-copyright-wrapper a {
+                color: #4c4c4c;
+            }
+        </style>
+    
     </head>
-    <body class="container">
-        <div class="page-header">
-            <h1>Your CMS</h1>
-        </div>
-
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/signup">Sign Up</a></li>
-                        <li><a href="/dashboard">Dashboard</a></li>
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/login">Log In</a></li>
-                        {{!-- <li><a href="/logout">Log Out</a></li> --}}
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-
-        <div class="container row">
-            <div class="jumbotron col-sm-4 pull-center">
+    <body class="signup-body">      
+        <div class="container signup-main--wrapper">
+            <div class="signup-box-wrapper">
+                <h3 class="text-center signup-heading">Signup to CMS</h3>
                 <form action="/user/signup" method="post">
-                    <div>
-                        <label>Name:</label>
-                        <input type="text" name="name"/>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                    <div class="form-group has-success">
+                        <label for="userName">Your Name <span>*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" name="name" placeholder="Name" class="form-control" id="userName" maxlength="30" required/>
+                        </div>                        
                     </div>
-                    <div>
-                        <label>Email:</label>
-                        <input type="text" name="email"/>
-                    </div>    
-                    <div>
-                        <label>Password:</label>
-                        <input type="password" name="password"/>
+                    <div class="form-group has-success">
+                        <label for="userMail">Email <span>*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <input type="email" name="email" placeholder="Email-Id" class="form-control" id="userMail"  required/>
+                        </div>                        
                     </div>
-                    <div>
-                        <input class="btn btn-primary" type="submit" value="Sign Up"/>
+                    <div class="form-group has-success">
+                        <label for="userPassword">Password <span>*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" name="password" placeholder="Password" class="form-control" id="userPassword"  required/>
+                        </div>                        
                     </div>
-                </form>                  
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked required> I agree to the Terms & Conditions
+                        </label>
+                    </div>
+                    <div class="text-center group-buttons">
+                        <input type="submit" class="btn btn-success" value="Sign Up" />
+                        <input type="reset" class="btn btn-danger" value="Reset" />
+                    </div>
+                </form>
+                <div class="text-center register-text">
+                     <p>Already Have An Account? <a href="/user/login">Login Here</a></p>
+                </div>                  
             </div>          
+        </div>
+        <div class="container">
+            <div class="login-copyright-wrapper">
+                <p>&copy; 2018 CMS Signup Form. All Rights Reserved | Designed by <a href="http://marmeto.com/" target="_blank">Marmeto</a></p>
+            </div>
         </div>
     </body>
 </html>

@@ -1,38 +1,35 @@
+const dotenv = require('dotenv').config();
 const path = require("path");
 const http = require("http");
 const publicPath = path.join(__dirname,'/public');
 const port = process.env.PORT || 4000;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-const dotenv = require('dotenv').config();
 const hbs = require('hbs');
 var cors = require('cors');
 var helmet = require('helmet')
 
 const express = require("express");
-var session = require('express-session');
-
-
+// var session = require('express-session');
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/loyalty-shopify');
+
+const DB = process.env.DB || 'test'
+mongoose.connect('mongodb://localhost:27017/'+DB);
 
 var app = express();
 
 app.set('trust proxy', 'loopback');
 
 
-
 // to verify shopify webhooks, raw body is required
 // use this middleware before using bodyParser
 app.use(function(req, res, next) {
   req.rawBody = '';
-
   req.on('data', function(chunk) { 
     req.rawBody += chunk;
   });
-
   next();
 });
 
@@ -53,23 +50,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-
-
-// app.use(express.bodyParser());
-
-// initialize cookie-parser to allow us access the cookies stored in the browser. 
-app.use(cookieParser());
-
-// initialize express-session to allow us track the logged-in user across sessions.
-app.use(session({
-  key: 'user_sid',
-  secret: 'somerandonstuffs',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-      expires: 600000*100
-  }
-}));
+const {
+  setupSession,
+  isAdmin
+} = require('./middlewares/sessionChecker');
+setupSession(app);
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
@@ -100,18 +85,18 @@ hbs.registerHelper('json', function(context) {
 const accessControlAllow = require('./middlewares/accessControlAllow');
 app.use(accessControlAllow.allow);
 
+// initializing shopify objects
+require('./shopify/shopifyAppSetting');
+
 const registerWebhooks = require('./routes/webhook');
-app.use('/webhooks', registerWebhooks);
-
-
 const users = require('./routes/user');
-app.use('/user', users);
-
-
 const order = require('./routes/order');
+
+
+app.use('/webhooks', registerWebhooks);
+app.use('/user', users);
 app.use('/order', order);
-
-
+app.use('/', users);
 // public app end points
 
 // const salesApp = require('./shopify/publicApp');
@@ -119,7 +104,7 @@ app.use('/order', order);
 // app.get('/shopify/callback', salesApp.callback);
 
 
-app.get('/dashboard',sessionChecker, (req, res) => {
+app.get('/dashboard',isAdmin, (req, res) => {
   res.send('Some dashboard content');
 }); 
 

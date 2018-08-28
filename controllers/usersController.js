@@ -1,35 +1,54 @@
+"use strict";
+
 var {User} = require('../models/user');
 
 // route for user signup
 exports.getSignup = (req, res) => {
-    res.render('signup.hbs');
+    if (req.session.user && req.cookies.user_sid) {
+        res.redirect('/');
+    } else {
+        res.render('signup.hbs', {title: "Awesome App", csrfToken: req.csrfToken()});
+    }
 }
 
+/**
+ * Admin signup route
+ */ 
+
 exports.postSignup = (req, res) => {
+    let user_type = 'admin';
+
     User.create({
-        // username: req.body.username,
+        name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        user_type: user_type
     })
     .then(user => {
-        req.session.user = user.dataValues;
-        res.redirect('/user/dashboard');
+        req.session.user = req.body.email;
+        req.session.user_type = user_type;
+        res.redirect('/');
     })
     .catch((err) => {
         console.log(err);
         res.redirect('/user/signup');
     });
-}
+};
 
 
 // route for user Login
 
 exports.getLogin = (req, res) => {
-    res.render('login.hbs');
+    if (req.session.user && req.cookies.user_sid) {
+        res.redirect('/');
+    } else {
+        res.render('login.hbs', {title: "LatestOne Login", csrfToken: req.csrfToken()});
+    }
 }
 
+
 exports.postLogin = (req, res) => {
-    console.log('post login');
+    // console.log('post login');
     var email = req.body.email,
     password = req.body.password;
 
@@ -39,29 +58,22 @@ exports.postLogin = (req, res) => {
             res.redirect('/user/login');
         } else if (!user.validPassword(password)) {
             console.log('not valid password');
-            // return res.send('not valid password');
             res.redirect('/user/login');
         } else {
-            // console.log(user);
-            // console.log(user.validPassword(password));
             req.session.user = user.email;
-            res.redirect('/user/dashboard');
+            req.session.user_type = user.user_type;
+            res.redirect('/');
         }
-    })
-    .catch( (err) => {
-        res.send(err);
     });
 }
 
 
 
 // route for user's dashboard
-exports.dashboard = (req, res) => {
+exports.home = (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
-        console.log('a');
-        res.render('dashboard.hbs');
+        res.render('index.hbs');
     } else {
-        console.log('b');
         res.redirect('/user/login');
     }
 }
@@ -73,6 +85,6 @@ exports.logout = (req, res) => {
         res.clearCookie('user_sid');
         res.redirect('/');
     } else {
-        res.redirect('/user/login');
+        res.redirect('/login');
     }
 }

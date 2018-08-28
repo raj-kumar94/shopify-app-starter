@@ -1,34 +1,10 @@
-# verifying webhooks
-
-```
-const verifyShopifyWebhook = require('../middlewares/verifyWebhooks');
-let status = verifyShopifyWebhook(req, res); // immediately sends 200 or 401 status, so don't send response again
-if(!status){
-    console.log('cannot verify request');
-    return;
-}
-
-```
 
 # using shopify api (official module)
 
 ```
-const Shopify = require('shopify-api-node');
+require('../shopify/shopifyAppSetting');
 
-var {baseUrl, shop_name, shopify_api_key, shopify_api_secret, shopify_api_shared_secret} = require('../shopify/shopifyAppSetting');
-
-const shopify = new Shopify({
-  shopName: shop_name,
-  apiKey: shopify_api_key,
-  password: shopify_api_secret
-});
-
-// public app
-
-// const shopify = new Shopify({
-//   shopName: shop_name,
-//   accessToken: accessToken
-// });
+let shopify = ShopifyConfig.getAny();
 
 exports.orders = (req, res) => {
   shopify.order.list({limit:1})
@@ -43,12 +19,42 @@ exports.orders = (req, res) => {
 
 > Note: copy .env.example to .env and update values
 
-# Registering webhooks
+# Multiple private apps to boost performance and avoid too many request
+
+We can have multiple private app used for a single store. You can configure upto 3 apps in .env file
+
+if `DEPOLOYMENT = production` in .env file, then it will use upto 3 private apps you set up in .env file otherwise a single app will be used
+
+# webhooks
+
+## Registering a webhook
+
 ```
 node shopify/registerWeboks.js products/update
 ```
 
-# Checking user session
+## Listing registered webhooks
+
+## verifying webhooks
+
+```
+node shopify/registerWeboks.js list
+```
+
+
+```
+const verifyShopifyWebhook = require('../middlewares/verifyWebhooks');
+let status = verifyShopifyWebhook(req, res); // immediately sends 200 or 401 status, so don't send response again
+if(!status){
+    console.log('cannot verify request');
+    return;
+}
+```
+
+
+# User/session management 
+
+## Checking user session
 
 ```
 var sessionChecker = require('./middlewares/sessionChecker');

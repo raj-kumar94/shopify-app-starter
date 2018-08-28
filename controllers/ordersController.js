@@ -1,13 +1,7 @@
 const Shopify = require('shopify-api-node');
 var verifyShopifyWebhook = require('../middlewares/verifyWebhooks');
 
-var {baseUrl, shop_name, shopify_api_key, shopify_api_secret, shopify_api_shared_secret} = require('../shopify/shopifyAppSetting');
-
-const shopify = new Shopify({
-  shopName: shop_name,
-  apiKey: shopify_api_key,
-  password: shopify_api_secret
-});
+// var {baseUrl, shop_name, shopify_api_key, shopify_api_secret, shopify_api_shared_secret} = require('../shopify/shopifyAppSetting');
 
 // public app
 
@@ -17,6 +11,8 @@ const shopify = new Shopify({
 // });
 
 exports.orders = (req, res) => {
+  let shopify = ShopifyConfig.getAny();
+  console.log(shopify.callLimits);
   shopify.order.list({limit:1})
     .then( (order) => {
       res.send(order)

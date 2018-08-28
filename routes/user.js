@@ -1,14 +1,27 @@
-const express = require("express");
-var router = express.Router();
-
+const router = require('express').Router();
 const usersController = require('../controllers/usersController');
-const sessionChecker = require('../middlewares/sessionChecker');
+const {isAdmin} = require('../middlewares/sessionChecker');
+const {csrfProtection} = require('../middlewares/csrfProtection');
 
-router.get('/login', usersController.getLogin);
-router.post('/login', usersController.postLogin);
-router.get('/signup', usersController.getSignup);
-router.post('/signup', usersController.postSignup);
-router.get('/logout', usersController.logout);
-router.get('/dashboard', usersController.dashboard);
+router.get('/login',csrfProtection, usersController.getLogin);
+router.post('/login', csrfProtection, usersController.postLogin);
+
+/**
+ * Remove signup routes on production
+*/
+if(process.env.SIGNUP == "yes"){
+    router.get('/signup', csrfProtection, usersController.getSignup);
+    router.post('/signup',csrfProtection, usersController.postSignup);
+}
+
+/**
+ * route to logout users
+*/
+router.post('/logout',isAdmin, usersController.logout);
+
+/**
+ * Landing page
+*/
+router.get('/', isAdmin, usersController.home);
 
 module.exports = router;
