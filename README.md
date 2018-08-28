@@ -19,7 +19,7 @@ exports.orders = (req, res) => {
 
 > Note: copy .env.example to .env and update values
 
-# Multiple private apps to boost performance and avoid too many request
+# Multiple private apps to boost performance and avoid too many requests
 
 We can have multiple private app used for a single store. You can configure upto 3 apps in .env file
 
