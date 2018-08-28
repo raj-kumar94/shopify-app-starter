@@ -90,22 +90,22 @@ ShopConfig.prototype.getAny = function() {
     // else if(shopify2 && shopify1.callLimits.remaining == undefined) return shopify2;
     // else if(shopify3 && shopify1.callLimits.remaining == undefined) return shopify3;
     if(shopify1 && shopify1.callLimits.remaining == undefined) {
-        console.log('shopify1 is serving')
+        // console.log('shopify1 is serving')
         return shopify1;
     }
     else if(shopify2 && shopify2.callLimits.remaining == undefined){
-        console.log('shopify2 is serving')
+        // console.log('shopify2 is serving')
         return shopify2;
     }
     else if(shopify3 && shopify3.callLimits.remaining == undefined){
-        console.log('shopify3 is serving')
+        // console.log('shopify3 is serving')
         return shopify3;
     }
 
     // console.log(shopify1.callLimits);
     // console.log(shopify2.callLimits);
     // console.log(shopify3.callLimits);
-    console.log('competetion is high!!');
+    // console.log('competetion is high!!');
     if(shopify1 && shopify2 && shopify3) {
         return (
             (shopify1.callLimits.remaining > shopify2.callLimits.remaining && shopify1.callLimits.remaining > shopify3.callLimits.remaining) 

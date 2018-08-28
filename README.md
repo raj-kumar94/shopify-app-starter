@@ -53,6 +53,7 @@ if(!status){
 
 # User/session management 
 
+By default signedup user will be an Admin. If you want to add different types of users, consider editing `usersController.js`
 
 # User Routes
 
@@ -66,7 +67,7 @@ GET /user/signup
 POST /user/logout
 ```
 
-if `/user/logout` is not availale, then add `SIGNUP = yes` in your .env file
+if `/user/logout` is not availale, then add `SIGNUP=yes` in your .env file
 
 ## middleware to check if user is an Admin
 
@@ -79,7 +80,7 @@ then in a route
 router.get('/', isAdmin, usersController.home);
 ```
 
-# Protecting forms
+# Protecting forms with csrf token
 
 ```
 const {csrfProtection} = require('../middlewares/csrfProtection');
@@ -99,10 +100,18 @@ exports.getLogin = (req, res) => {
 }
 ```
 
-And in your form
+And `csrfToken` in your form
 
 ```
 <form ...>
   <input type="hidden" name="_csrf" value="{{csrfToken}}">
 </form>
 ```
+
+# Using Redis for user session
+
+in your .env file add `REDIS=yes`
+
+you can configure further in `sessionChecker.js`
+
+ofcourse you can use it for your general purpose too
