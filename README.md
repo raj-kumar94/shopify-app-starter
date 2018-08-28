@@ -98,3 +98,11 @@ exports.getLogin = (req, res) => {
     }
 }
 ```
+
+And in your form
+
+```
+<form ...>
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
+</form>
+```
