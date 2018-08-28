@@ -42,7 +42,7 @@ exports.getLogin = (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.redirect('/');
     } else {
-        res.render('login.hbs', {title: "LatestOne Login", csrfToken: req.csrfToken()});
+        res.render('login.hbs', {title: "Login", csrfToken: req.csrfToken()});
     }
 }
 

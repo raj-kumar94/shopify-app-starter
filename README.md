@@ -35,12 +35,11 @@ node shopify/registerWeboks.js products/update
 
 ## Listing registered webhooks
 
-## verifying webhooks
-
 ```
 node shopify/registerWeboks.js list
 ```
 
+## verifying webhooks
 
 ```
 const verifyShopifyWebhook = require('../middlewares/verifyWebhooks');
@@ -54,15 +53,48 @@ if(!status){
 
 # User/session management 
 
-## Checking user session
+
+# User Routes
+
+If you're building a CMS, you would probably require to make user management as well
+
+## routes
 
 ```
-var sessionChecker = require('./middlewares/sessionChecker');
+GET /user/login
+GET /user/signup
+POST /user/logout
+```
+
+if `/user/logout` is not availale, then add `SIGNUP = yes` in your .env file
+
+## middleware to check if user is an Admin
+
+```
+var {isAdmin} = require('./middlewares/sessionChecker');
 ```
 then in a route
 
 ```
-app.get('/profile',sessionChecker, (req, res) => {
-  res.redirect('/user/login');
-}); 
+router.get('/', isAdmin, usersController.home);
+```
+
+# Protecting forms
+
+```
+const {csrfProtection} = require('../middlewares/csrfProtection');
+
+router.get('/login',csrfProtection, usersController.getLogin);
+```
+
+and then in your handler
+
+```
+exports.getLogin = (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.redirect('/');
+    } else {
+        res.render('login.hbs', {title: "Login", csrfToken: req.csrfToken()});
+    }
+}
 ```
