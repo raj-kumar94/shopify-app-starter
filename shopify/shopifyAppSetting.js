@@ -31,6 +31,7 @@ if(process.env.DEPOLOYMENT === 'production'){
     } = process.env;
     
     global.SHOPIFY_SHARED_SECRET = ONE_PRODUCTION_SHOPIFY_SHARED_SECRET;
+    global.BASE_URL = ONE_PRODUCTION_BASE_URL;
     
     shopify1 = new Shopify({
         shopName: ONE_PRODUCTION_SHOP_NAME,
@@ -66,6 +67,7 @@ if(process.env.DEPOLOYMENT === 'production'){
     } = process.env;
 
     global.SHOPIFY_SHARED_SECRET = TEST_SHOPIFY_SHARED_SECRET;
+    global.BASE_URL = TEST_BASE_URL;
 
     shopify1 = new Shopify({
         shopName: TEST_SHOP_NAME,

@@ -19,7 +19,7 @@ function listWebhooks_() {
   }
 
 async function registerWebhooks(args){
-    for(let i=0; i<args.length; args++) {
+    for(let i=0; i<args.length; i++) {
         if(args[i] === 'list'){
             try{
                 let result = await listWebhooks_();
