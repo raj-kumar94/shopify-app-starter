@@ -47,7 +47,7 @@ Use this command to get all info
 node shopify/registerWeboks.js
 ```
 
-## What will be the endpoint for my webhooks ?
+## What will be the endpoint of my webhooks ?
 
 If you registered `products/create` webhook, enpoint will be:
 
@@ -74,7 +74,7 @@ By default signed up user will be an Admin. If you want to add different types o
 
 # User Routes
 
-If you're building a CMS, you would probably require to make user management as well
+If you're building a CMS, you would probably require to manage users as well
 
 ## routes
 
@@ -84,7 +84,7 @@ GET /user/signup
 POST /user/logout
 ```
 
-if `/user/logout` is not availale, then add `SIGNUP=yes` in your .env file
+if `/user/signup` is not availale, then add `SIGNUP=yes` in your .env file
 
 ## middleware to check if user is an Admin
 
@@ -120,8 +120,10 @@ exports.getLogin = (req, res) => {
 And `csrfToken` in your form
 
 ```
-<form ...>
+<form method="POST" action="/submit">
   <input type="hidden" name="_csrf" value="{{csrfToken}}">
+  .
+  .
 </form>
 ```
 
