@@ -127,8 +127,12 @@ And `csrfToken` in your form
 
 # Using Redis for user session
 
-in your .env file add `REDIS=yes`
+Why ?
 
-you can configure further in `sessionChecker.js`
+If you're using express-session and using cluster mode with multiple node instances running, most likely your session management will fail. Either store session in database or use any fast in-memory database such as redis
 
-ofcourse you can use it for your general purpose too
+- in your .env file add `REDIS=yes`
+
+- you can configure further in `sessionChecker.js`
+
+- install connect-redis package with command `npm install --save connect-redis`
