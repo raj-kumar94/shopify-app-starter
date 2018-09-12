@@ -30,7 +30,7 @@ if `DEPOLOYMENT = production` in .env file, then it will use upto 3 private apps
 ## Registering a webhook
 
 ```
-node shopify/registerWeboks.js products/update
+node shopify/registerWeboks.js products/update products/create
 ```
 
 ## Listing registered webhooks
@@ -38,6 +38,23 @@ node shopify/registerWeboks.js products/update
 ```
 node shopify/registerWeboks.js list
 ```
+
+## Other commands
+
+Use this command to get all info
+
+```
+node shopify/registerWeboks.js
+```
+
+## What will be the endpoint for my webhooks ?
+
+If you registered `products/create` webhook, enpoint will be:
+
+```
+POST /webhooks/products-update
+```
+
 
 ## verifying webhooks
 
@@ -53,7 +70,7 @@ if(!status){
 
 # User/session management 
 
-By default signedup user will be an Admin. If you want to add different types of users, consider editing `usersController.js`
+By default signed up user will be an Admin. If you want to add different types of users, consider editing `usersController.js`
 
 # User Routes
 
